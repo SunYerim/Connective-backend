@@ -1,3 +1,11 @@
+---
+name: 코드 병합 (Code Merge)
+about: 기능을 추가하거나 버그를 수정하는 PR 템플릿입니다.
+title: "[PR] "
+labels: needs review
+assignees:
+---
+
 ### 설명 (Description)
 
 - 이 PR이 어떤 변화를 도입하는지 명확하게 설명해주세요.
