@@ -7,8 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
-import org.springframework.util.LinkedMultiValueMap; // 이 줄이 있는지 확인
-import org.springframework.util.MultiValueMap;     // 이 줄이 있는지 확인
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 @Service
 public class GoogleAuthClient {
