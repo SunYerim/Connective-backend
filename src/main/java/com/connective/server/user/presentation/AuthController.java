@@ -1,6 +1,5 @@
 package com.connective.server.user.presentation;
 
-
 import com.connective.server.user.application.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,7 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @GetMapping
+    @GetMapping("/callback")
     public ResponseEntity<String> googleCallback(@RequestParam String code) {
         if (code == null || code.isEmpty()) {
             return ResponseEntity.badRequest().body("Authorization code not found.");

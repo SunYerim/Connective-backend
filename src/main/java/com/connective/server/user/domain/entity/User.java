@@ -1,7 +1,12 @@
 package com.connective.server.user.domain.entity;
 
+import com.connective.server.user.domain.enums.ProfileCharacterType;
+import com.connective.server.user.domain.enums.SocialProviderType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,11 +18,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "User")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 public class User {
 
     @Id
@@ -28,17 +35,19 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "nicknmae")
+    @Column(name = "nickname")
     private String nickname;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "profile_character_type")
-    private String profileCharacterType;
+    private ProfileCharacterType profileCharacterType;
 
     @Column(name = "status_message")
     private String statusMessage;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "social_provider", nullable = false)
-    private String socialProvider; // KAKAO , GOOGLE
+    private SocialProviderType socialProvider; // KAKAO , GOOGLE
 
     @Column(name = "social_id", nullable = false, unique = true)
     private String socialId;
@@ -52,8 +61,9 @@ public class User {
     private LocalDateTime updatedAt;
 
     @Builder
-    public User(String email, String nickname, String profileCharacterType, String statusMessage,
-        String socialProvider, String socialId) {
+    public User(String email, String nickname, ProfileCharacterType profileCharacterType,
+        String statusMessage,
+        SocialProviderType socialProvider, String socialId) {
         this.email = email;
         this.nickname = nickname;
         this.profileCharacterType = profileCharacterType;
@@ -75,7 +85,7 @@ public class User {
         this.statusMessage = statusMessage;
     }
 
-    public void updateProfileCharacterType(String profileCharacterType) {
+    public void updateProfileCharacterType(ProfileCharacterType profileCharacterType) {
         this.profileCharacterType = profileCharacterType;
     }
 

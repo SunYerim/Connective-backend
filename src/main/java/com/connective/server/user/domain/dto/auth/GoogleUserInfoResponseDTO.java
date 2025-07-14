@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GoogleUserInfoResponseDTO {
 
-    private String id;
+    private String id; // social_id
     private String email;
     @JsonProperty("verified_email")
     private Boolean verifiedEmail;
