@@ -71,11 +71,12 @@ public class JwtTokenProvider {
      *
      * @return 생성된 Refresh Token 문자열
      */
-    public String generateRefreshToken() {
+    public String generateRefreshToken(Long userId) {
         Date now = new Date();
         Date expiration = new Date(now.getTime() + refreshTokenExpiry);
 
         return Jwts.builder()
+            .setSubject(String.valueOf(userId))
             .setIssuedAt(now)
             .setExpiration(expiration)
             .signWith(key, SignatureAlgorithm.HS256)
@@ -131,6 +132,44 @@ public class JwtTokenProvider {
             log.error("Invalid or malformed JWT Token. Cannot parse claims.", e);
             return null;
         }
+    }
+
+    /**
+     * 토큰에서 사용자 ID(Subject)를 추출합니다.
+     * @param token 토큰 문자열
+     * @return 사용자 ID (Long), 추출 실패 시 null
+     */
+    public Long getUserIdFromToken(String token) {
+        try {
+            Claims claims = parseClaims(token);
+            if (claims != null && claims.getSubject() != null) {
+                return Long.valueOf(claims.getSubject());
+            }
+        } catch (Exception e) {
+            log.error("Failed to extract userId from token: {}", e.getMessage());
+        }
+        return null;
+    }
+
+
+
+
+    /**
+     * Access Token 만료 시간(밀리초)을 반환합니다.
+     *
+     * @return accessTokenExpiry
+     */
+    public long getAccessTokenExpiry() {
+        return accessTokenExpiry;
+    }
+
+    /**
+     * Refresh Token 만료 시간(밀리초)을 반환합니다.
+     *
+     * @return refreshTokenExpiry
+     */
+    public long getRefreshTokenExpiry() {
+        return refreshTokenExpiry;
     }
 
 }
