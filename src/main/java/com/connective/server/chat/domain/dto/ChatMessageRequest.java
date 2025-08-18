@@ -1,4 +1,4 @@
-package com.connective.server.chat.presentation;
+package com.connective.server.chat.domain.dto;
 
 import com.connective.server.chat.domain.entity.Message;
 import lombok.AllArgsConstructor;
