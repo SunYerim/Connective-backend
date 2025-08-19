@@ -1,5 +1,9 @@
 package com.connective.server.chat.presentation;
 
+import com.connective.server.chat.application.service.ChatRoomService;
+import com.connective.server.chat.application.service.MessageService;
+import com.connective.server.chat.domain.dto.ChatMessageRequest;
+import com.connective.server.chat.domain.dto.ChatMessageResponse;
 import com.connective.server.chat.domain.entity.Message;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,13 +15,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDateTime;
-
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 public class ChatController {
 
     private final SimpMessagingTemplate messagingTemplate;
+    private final MessageService messageService;
+    private final ChatRoomService chatRoomService;
 
     @MessageMapping("/chat/{roomId}")
     public void sendMessage(@DestinationVariable String roomId, 
