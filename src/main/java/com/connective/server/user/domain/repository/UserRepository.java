@@ -2,6 +2,7 @@ package com.connective.server.user.domain.repository;
 
 import com.connective.server.user.domain.entity.User;
 import com.connective.server.user.domain.enums.SocialProviderType;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -18,5 +19,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return 일치하는 User 엔티티를 포함하는 Optional, 없으면 Optional.empty()
      */
     Optional<User> findBySocialProviderAndSocialId(SocialProviderType socialProvider, String socialId);
+
+    /**
+     * 여러 사용자 ID를 한 번에 조회합니다. (N+1 문제 해결용)
+     *
+     * @param ids 조회할 사용자 ID 목록
+     * @return 일치하는 User 엔티티 목록
+     */
+    List<User> findByIdIn(List<Long> ids);
 
 }
